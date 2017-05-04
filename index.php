@@ -58,7 +58,14 @@ register_shutdown_function(function(){
 	];
 
 	$statusCode = 200;
+	$resultHeaders = [];
 	foreach($headers as $header) {
+		$pos = strpos( $header, ':');
+		$headerName = substr($header, 0, $pos);
+		$headerValue = substr($header, $pos+1);
+
+		$resultHeaders[$headerName] = trim($headerValue);
+
 		foreach($httpCodes as $code => $codeText) {
 			if(strpos($header, $codeText) !== false) {
 				$statusCode = $code;
@@ -67,9 +74,9 @@ register_shutdown_function(function(){
 	}
 
 	echo json_encode([
+		'headers'=> $resultHeaders,
 		'statusCode' => $statusCode,
 		'body' => ob_get_clean(),
-		'headers'=> $headers
 	]);
 });
 
