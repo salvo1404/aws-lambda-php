@@ -9,6 +9,7 @@ exports.handler = function(event, context, callback) {
   var php = child_process.spawn( './php', [ '-c', 'php.ini', 'index.php' ] );
 
   //send the input event json as string via STDIN to php process
+console.log(JSON.stringify(event));
   php.stdin.write(JSON.stringify(event));
 
   //close the php stream to unblock php process
