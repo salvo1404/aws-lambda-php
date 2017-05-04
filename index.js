@@ -6,7 +6,7 @@ exports.handler = function(event, context, callback) {
 
   var output = '';
 
-  var php = child_process.spawn( './php', [ 'index.php' ] );
+  var php = child_process.spawn( './php -c php.ini', [ 'index.php' ] );
 
   //send the input event json as string via STDIN to php process
   php.stdin.write(JSON.stringify(event));
