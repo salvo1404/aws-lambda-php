@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
 	libpspell-dev \
 	librecode-dev \
 	php-mysql \
-  php-xdebug
+    php-xdebug
 
 RUN git clone -b $PHP_VERSION https://github.com/php/php-src /php-src/
 
@@ -70,7 +70,8 @@ RUN ./configure \
     --enable-gd-jis-conv \
     --libdir=/usr/lib64 \
     --disable-opcache \
-    --disable-cgi
+    --disable-cgi \
+    --enable-xdebug
 
 RUN make
 
