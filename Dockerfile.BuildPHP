@@ -24,7 +24,8 @@ RUN apt-get update && apt-get install -y \
 	libgmp-dev \
 	libpspell-dev \
 	librecode-dev \
-	php-mysql
+	php-mysql \
+  php-xdebug
 
 RUN git clone -b $PHP_VERSION https://github.com/php/php-src /php-src/
 
@@ -56,6 +57,7 @@ RUN ./configure \
     --enable-sysvsem \
     --enable-sysvshm \
     --enable-json \
+    --enable-xdebug \
     --with-curl \
     --with-iconv \
     --with-gmp \
