@@ -15,6 +15,18 @@ define('WP_USE_THEMES', true);
 
 ob_start();
 
+$data = stream_get_contents(STDIN);
+
+$lambdaInput = json_decode($data, true);
+
+if(!isset($_SERVER)) {
+	$_SERVER = [];
+}
+
+$_SERVER['HTTPS'] = 'on';
+//$_SERVER['HTTP_HOST'] = '4yloot81ub.execute-api.ap-southeast-2.amazonaws.com';
+
+
 register_shutdown_function(function(){
 	$headers = php_sapi_name() === 'cli' ? xdebug_get_headers() : headers_list();
 	$httpCodes = [
