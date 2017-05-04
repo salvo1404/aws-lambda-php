@@ -6,7 +6,7 @@ exports.handler = function(event, context, callback) {
 
   var output = '';
 
-  var php = child_process.spawn( './php -c php.ini', [ 'index.php' ] );
+  var php = child_process.spawn( './php', [ '-c', 'php.ini', 'index.php' ] );
 
   //send the input event json as string via STDIN to php process
   php.stdin.write(JSON.stringify(event));
@@ -32,20 +32,6 @@ exports.handler = function(event, context, callback) {
       return context.done(new Error("Process exited with non-zero status code"));
     }
 
-    var res = {
-      headers: [],
-      body:output
-    };
-
-    var html = '<html><head><title>HTML from API Gateway/Lambda</title></head>' +
-        '<body><h1>HTML from API Gateway/Lambda</h1></body></html>';
-
-    context.succeed( {
-      statusCode: 200,
-      body: output,
-      headers: {
-        'content-type': 'text/html'
-      }
-    } );
+    context.succeed( JSON.parse( output ) );
   });
 };

@@ -24,8 +24,7 @@ RUN apt-get update && apt-get install -y \
 	libgmp-dev \
 	libpspell-dev \
 	librecode-dev \
-	php-mysql \
-    php-xdebug
+	php-mysql
 
 RUN git clone -b $PHP_VERSION https://github.com/php/php-src /php-src/
 
@@ -57,7 +56,6 @@ RUN ./configure \
     --enable-sysvsem \
     --enable-sysvshm \
     --enable-json \
-    --enable-xdebug \
     --with-curl \
     --with-iconv \
     --with-gmp \
@@ -70,9 +68,18 @@ RUN ./configure \
     --enable-gd-jis-conv \
     --libdir=/usr/lib64 \
     --disable-opcache \
-    --disable-cgi \
-    --enable-xdebug
+    --disable-cgi
 
 RUN make
 
+RUN make install
+
+RUN git clone git://github.com/xdebug/xdebug.git /php-xdebug/
+
+WORKDIR /php-xdebug
+
+RUN /root/php7/usr/bin/phpize
+
+RUN ./configure --with-php-config=/root/php7/usr/bin/php-config --enable-xdebug
+RUN make
 RUN make install
