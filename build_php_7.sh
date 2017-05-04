@@ -14,5 +14,6 @@ docker build --build-arg PHP_VERSION=$PHP_VERSION_GIT_BRANCH -t php-build -f Doc
 container=$(docker create php-build)
 
 docker -D cp $container:/root/php7/usr/bin/php ./php
+docker -D cp $container:/usr/lib/php/20151012/xdebug.so ./xdebug.so
 
-docker rm $container
+# docker rm $container
