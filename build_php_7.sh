@@ -16,4 +16,4 @@ container=$(docker create php-build)
 docker -D cp $container:/root/php7/usr/bin/php ./php
 docker -D cp $container:/usr/lib64/extensions/no-debug-non-zts-20160303/xdebug.so ./xdebug.so
 
-# docker rm $container
+docker rm $container
